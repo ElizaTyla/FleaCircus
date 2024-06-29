@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6803099796300796993}
   - component: {fileID: -7768170676804225658}
   - component: {fileID: 773179733716504930}
+  - component: {fileID: 8964270528249082979}
   - component: {fileID: 5295617967091237873}
   m_Layer: 0
   m_Name: Flea
@@ -119,7 +120,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5065088539215666474}
-  - {fileID: 399532790815007817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7647703993777246980
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
+  knockbackForce: 0
   invulnerableTime: 0
 --- !u!114 &-7768170676804225658
 MonoBehaviour:
@@ -183,6 +184,8 @@ MonoBehaviour:
   _deceleration: 25
   _jumpForce: 15
   _jumpItemMultiplier: 3
+  _jumpForce: 30
+  _jumpItemMultiplier: 0
   _itemCount: 0
   _isGrounded: 0
   _lookDir: 1
@@ -241,6 +244,8 @@ Animator:
   m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7586827655478175331
 GameObject:
+--- !u!61 &8964270528249082979
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -278,6 +283,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7586827655478175331}
+  m_GameObject: {fileID: 5248687982096578576}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 6d50a07c9188f0b48aa7539588b3c348, type: 2}
@@ -306,3 +312,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
