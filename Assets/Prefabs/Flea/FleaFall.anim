@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FleaJump
+  m_Name: FleaFall
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,15 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: d57580bc3f671b44c9c7ce186a3dc8ba, type: 3}
-    - time: 0.06666667
-      value: {fileID: 21300000, guid: c35140444b409a64588970cd8aee71a0, type: 3}
-    - time: 0.13333334
-      value: {fileID: 21300000, guid: bf054147d3abdcc48932472779c42d9f, type: 3}
-    - time: 0.23333333
-      value: {fileID: 21300000, guid: 100bfaf053566704eb92f13309b65677, type: 3}
-    - time: 0.33333334
-      value: {fileID: 21300000, guid: 5c8c04ff655b03a4d99bcf392a387521, type: 3}
+      value: {fileID: 21300000, guid: 7f129b4a1ee4d46458e6a0023d776f06, type: 3}
     attribute: m_Sprite
     path: Square
     classID: 212
@@ -52,17 +44,13 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: d57580bc3f671b44c9c7ce186a3dc8ba, type: 3}
-    - {fileID: 21300000, guid: c35140444b409a64588970cd8aee71a0, type: 3}
-    - {fileID: 21300000, guid: bf054147d3abdcc48932472779c42d9f, type: 3}
-    - {fileID: 21300000, guid: 100bfaf053566704eb92f13309b65677, type: 3}
-    - {fileID: 21300000, guid: 5c8c04ff655b03a4d99bcf392a387521, type: 3}
+    - {fileID: 21300000, guid: 7f129b4a1ee4d46458e6a0023d776f06, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.36666667
+    m_StopTime: 0.033333335
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

@@ -5,10 +5,21 @@ using UnityEngine.InputSystem;
 
 public class FleaMovementController : MonoBehaviour
 {
+    enum AnimationState
+    {
+        IDLE = 0,
+        WALK = 1,
+        JUMP = 2,
+        FALL = 3,
+        SHOOT = 4,
+        DEAD = 5
+    }
+
     [Header("Main")]
     public PlayerInputActions _inputActions;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Animator _animator;
     private LayerMask _environment;
 
 
@@ -20,10 +31,11 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private float _jumpItemMultiplier;
 
     [Header("Realtime Values")]
-    [SerializeField] private float _itemCount;
+    [SerializeField] private int _itemCount;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _lookDir = 1;
     [SerializeField] private float _jumpCooldown = 0.2f;
+    [SerializeField] private AnimationState _animState = AnimationState.IDLE;
     private InputAction _move;
     private InputAction _jump;
     private InputAction _shoot;
@@ -72,13 +84,19 @@ public class FleaMovementController : MonoBehaviour
             if (_rb.velocity.x > _speed || _rb.velocity.x < -_speed) { _rb.velocity = new Vector2(_speed * hInput, _rb.velocity.y); } //Cap top speed
         }
 
-        if (!_isGrounded && _jumpCooldown <= 0f) //TODO: add groundcheck
+        if (!_isGrounded && _jumpCooldown <= 0f)
         {
             if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
             else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
         }
-        Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 1.01f, Color.red);
-        Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 1.01f, Color.red);
+        else if (_isGrounded)
+        {
+            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = false; }
+        }
+        //Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 1.01f, Color.red);
+        //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 1.01f, Color.red);
+
+        HandleAnimations();
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -86,7 +104,10 @@ public class FleaMovementController : MonoBehaviour
         if (!_isGrounded || _jumpCooldown > 0) { return; }
         _isGrounded = false;
         _jumpCooldown = 0.2f;
-        _rb.AddForce(new Vector2(0, _jumpForce * (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
+         _rb.AddForce(new Vector2(0, _jumpForce + (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
+        Debug.Log("Jump Force: " + (_jumpForce + (_itemCount * _jumpItemMultiplier)));
+        _animator.Play("Jump");
+        _animState = AnimationState.JUMP;
     }
 
     private void Shoot(InputAction.CallbackContext context)
@@ -94,5 +115,62 @@ public class FleaMovementController : MonoBehaviour
         Debug.Log("shoot");
     }
 
-    //get stick bugged
+    private void HandleAnimations()
+    {
+        switch (_animState)
+        {
+            case AnimationState.IDLE:
+                if (_isGrounded && Mathf.Abs(_rb.velocity.x) > 0.05f)
+                {
+                    _animator.Play("Walk");
+                    _animState = AnimationState.WALK;
+                } else if (!_isGrounded)
+                {
+                    _animator.Play("Fall");
+                    _animState = AnimationState.FALL;
+                }
+                return;
+            case AnimationState.WALK:
+                if (_isGrounded && Mathf.Abs(_rb.velocity.x) < 0.05f)
+                {
+                    _animator.Play("Idle");
+                    _animState = AnimationState.IDLE;
+                }
+                else if (!_isGrounded)
+                {
+                    _animator.Play("Fall");
+                    _animState = AnimationState.FALL;
+                }
+                return;
+            case AnimationState.JUMP:
+                if (_isGrounded && Mathf.Abs(_rb.velocity.x) < 0.05f)
+                {
+                    _animator.Play("Idle");
+                    _animState = AnimationState.IDLE;
+                } else if (_isGrounded && Mathf.Abs(_rb.velocity.x) > 0.05f)
+                {
+                    _animator.Play("Walk");
+                    _animState = AnimationState.WALK;
+                }
+                else if (!_isGrounded && _rb.velocity.y < 0.5f)
+                {
+                    _animator.Play("Fall");
+                    _animState = AnimationState.FALL;
+                }
+                return;
+            case AnimationState.FALL:
+                if (_isGrounded && Mathf.Abs(_rb.velocity.x) < 0.05f)
+                {
+                    _animator.Play("Idle");
+                    _animState = AnimationState.IDLE;
+                }
+                else if (_isGrounded && Mathf.Abs(_rb.velocity.x) > 0.05f)
+                {
+                    _animator.Play("Walk");
+                    _animState = AnimationState.WALK;
+                }
+                return;
+            default: return;
+        }
+    }
 }

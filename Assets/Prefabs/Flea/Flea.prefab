@@ -177,15 +177,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 7647703993777246980}
   _spriteRenderer: {fileID: 3977828696824010469}
+  _animator: {fileID: 5295617967091237873}
   _speed: 15
   _acceleration: 25
   _deceleration: 25
-  _jumpForce: 30
-  _jumpItemMultiplier: 0
+  _jumpForce: 15
+  _jumpItemMultiplier: 3
   _itemCount: 0
   _isGrounded: 0
   _lookDir: 1
   _jumpCooldown: 0.2
+  _animState: 0
 --- !u!114 &773179733716504930
 MonoBehaviour:
   m_ObjectHideFlags: 0
