@@ -175,14 +175,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flea
       objectReference: {fileID: 0}
-    - target: {fileID: 6803099796300796993, guid: c1e9ff89d5b6a4e419aa98653dbd8805, type: 3}
-      propertyPath: knockbackForce
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6803099796300796993, guid: c1e9ff89d5b6a4e419aa98653dbd8805, type: 3}
-      propertyPath: invulnerableTime
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3174,7 +3166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970720571595657774, guid: 8fd92fb7e670ed84dbf0b22cd44339d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 6970720571595657774, guid: 8fd92fb7e670ed84dbf0b22cd44339d3, type: 3}
       propertyPath: m_LocalPosition.y

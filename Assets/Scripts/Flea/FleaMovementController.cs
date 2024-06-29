@@ -86,15 +86,15 @@ public class FleaMovementController : MonoBehaviour
 
         if (!_isGrounded && _jumpCooldown <= 0f)
         {
-            if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
-            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
+            if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.51f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.51f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
         }
         else if (_isGrounded)
         {
-            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = false; }
+            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.51f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 1.51f, _environment)) { _isGrounded = false; }
         }
-        //Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 1.01f, Color.red);
-        //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 1.01f, Color.red);
+        //Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 1.51f, Color.red);
+        //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 1.51f, Color.red);
 
         HandleAnimations();
     }
@@ -106,6 +106,7 @@ public class FleaMovementController : MonoBehaviour
         _jumpCooldown = 0.2f;
          _rb.AddForce(new Vector2(0, _jumpForce + (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
         Debug.Log("Jump Force: " + (_jumpForce + (_itemCount * _jumpItemMultiplier)));
+        if (_animState == AnimationState.SHOOT || _animState == AnimationState.DEAD) { return; }
         _animator.Play("Jump");
         _animState = AnimationState.JUMP;
     }
@@ -113,6 +114,8 @@ public class FleaMovementController : MonoBehaviour
     private void Shoot(InputAction.CallbackContext context)
     {
         Debug.Log("shoot");
+        _animator.Play("Shoot");
+        _animState = AnimationState.SHOOT;
     }
 
     private void HandleAnimations()
@@ -168,6 +171,35 @@ public class FleaMovementController : MonoBehaviour
                 {
                     _animator.Play("Walk");
                     _animState = AnimationState.WALK;
+                }
+                return;
+            case AnimationState.SHOOT:
+                if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) { return; }
+                if (_isGrounded)
+                {
+                    if (Mathf.Abs(_rb.velocity.x) < 0.05f)
+                    {
+                        _animator.Play("Idle");
+                        _animState = AnimationState.IDLE;
+                    }
+                    else if (Mathf.Abs(_rb.velocity.x) > 0.05f)
+                    {
+                        _animator.Play("Walk");
+                        _animState = AnimationState.WALK;
+                    }
+                }
+                else
+                {
+                    if (_rb.velocity.y < 0.5f)
+                    {
+                        _animator.Play("Fall");
+                        _animState = AnimationState.FALL;
+                    }
+                    else
+                    {
+                        _animator.Play("Jump", 0, 0.4f);
+                        _animState = AnimationState.JUMP;
+                    }
                 }
                 return;
             default: return;

@@ -326,6 +326,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1733545896214353376, guid: c1e9ff89d5b6a4e419aa98653dbd8805, type: 3}
   m_PrefabInstance: {fileID: 1944853932}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1301261265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301261266}
+  m_Layer: 0
+  m_Name: PA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1301261266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301261265}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.1, y: 0.17588067, z: -0.03982737}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327634956
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,6 +836,37 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &1643909662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643909663}
+  m_Layer: 0
+  m_Name: PB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643909663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643909662}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.08, y: 0.17588067, z: -0.03982737}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1787143417
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +1024,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 825792657}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1787143422
 MonoBehaviour:
@@ -976,8 +1038,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5485a2ad9f332489a951d99427fa4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 1240601108}
-  pointB: {fileID: 1312565182}
+  pointA: {fileID: 1301261265}
+  pointB: {fileID: 1643909662}
   speed: 3
   hp: 10
 --- !u!1001 &1944853932
@@ -1244,3 +1306,6 @@ SceneRoots:
   - {fileID: 1944853932}
   - {fileID: 1299111271126539974}
   - {fileID: 683929156955902764}
+  - {fileID: 1787143421}
+  - {fileID: 1301261266}
+  - {fileID: 1643909663}
