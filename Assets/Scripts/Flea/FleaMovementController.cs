@@ -86,11 +86,13 @@ public class FleaMovementController : MonoBehaviour
         if (!_isGrounded || _jumpCooldown > 0) { return; }
         _isGrounded = false;
         _jumpCooldown = 0.2f;
-        _rb.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(0, _jumpForce * (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
     }
 
     private void Shoot(InputAction.CallbackContext context)
     {
         Debug.Log("shoot");
     }
+
+    //get stick bugged
 }

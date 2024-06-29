@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 1327634961}
   - component: {fileID: 1327634963}
   - component: {fileID: 1327634962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1075,6 +1075,7 @@ MonoBehaviour:
   pointA: {fileID: 1240601108}
   pointB: {fileID: 1312565182}
   speed: 3
+  hp: 10
 --- !u!1001 &1944853932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1126,14 +1127,6 @@ PrefabInstance:
     - target: {fileID: 5248687982096578576, guid: c1e9ff89d5b6a4e419aa98653dbd8805, type: 3}
       propertyPath: m_Name
       value: Flea
-      objectReference: {fileID: 0}
-    - target: {fileID: 5248687982096578576, guid: c1e9ff89d5b6a4e419aa98653dbd8805, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6803099796300796993, guid: c1e9ff89d5b6a4e419aa98653dbd8805, type: 3}
-      propertyPath: hp
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
