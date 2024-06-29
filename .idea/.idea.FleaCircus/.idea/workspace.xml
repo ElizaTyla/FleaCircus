@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a5f3da7f-a2cd-4a55-85c8-49ce68d16b0c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FleaCircus/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FleaCircus/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Flea/spikes.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Flea/spikes.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TestScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Flea/Flea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Flea/Flea.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Flea/Flea.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Flea/Flea.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/gren.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/gren.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tiles/protoPalette.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tiles/protoPalette.prefab.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1719652599585</updated>
-      <workItem from="1719652602582" duration="8119000" />
+      <workItem from="1719652602582" duration="9956000" />
     </task>
     <servers />
   </component>
