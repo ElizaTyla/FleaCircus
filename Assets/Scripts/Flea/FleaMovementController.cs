@@ -17,8 +17,10 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private float _acceleration;
     [SerializeField] private float _deceleration;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpItemMultiplier;
 
     [Header("Realtime Values")]
+    [SerializeField] private float _itemCount;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _lookDir = 1;
     [SerializeField] private float _jumpCooldown = 0.2f;

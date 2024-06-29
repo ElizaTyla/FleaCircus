@@ -160,6 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cefd15531548c4409d0f81e47ec931a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 10
+  invulnerableTime: 0
 --- !u!114 &-7768170676804225658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +180,9 @@ MonoBehaviour:
   _acceleration: 25
   _deceleration: 25
   _jumpForce: 30
+  _isGrounded: 0
+  _lookDir: 1
+  _jumpCooldown: 0.2
 --- !u!114 &773179733716504930
 MonoBehaviour:
   m_ObjectHideFlags: 0
