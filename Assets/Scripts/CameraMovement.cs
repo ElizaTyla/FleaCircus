@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Transform player;
+    public Transform target;
     public float xOffset;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    public float yOffset;
 
     void LateUpdate()
     {
-        transform.position.x = player.position.x + offset;
+        transform.position =
+            new Vector3(target.position.x + xOffset, transform.position.y + yOffset, transform.position.x);
     }
 }
