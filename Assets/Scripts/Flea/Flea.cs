@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Flea : MonoBehaviour
 {
-    public int hp;
+    [SerializeField] public int hp;
+    [SerializeField] public float knockbackForce;
     private bool invulnerable = false;
     public float invulnerableTime;
     private Rigidbody2D rb;
@@ -34,9 +35,14 @@ public class Flea : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy") && !invulnerable)
         {
+            Debug.Log("Collide");
             hp -= 5;
             StartCoroutine("SetInvulnerable");
+            
+            //Knockback
+            Vector2 difference = (transform.position - other.transform.position).normalized;
+            Vector2 force = difference * knockbackForce;
+            rb.AddForce(force, ForceMode2D.Impulse);
         }
-        rb.AddForce(new Vector2(-2, 2));
     }
 }
