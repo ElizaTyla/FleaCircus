@@ -29,12 +29,14 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private float _deceleration;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _jumpItemMultiplier;
+    [SerializeField] private float _bouncePadMultiplier;
 
     [Header("Realtime Values")]
     [SerializeField] private int _itemCount;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _lookDir = 1;
     [SerializeField] private float _jumpCooldown = 0.2f;
+    [SerializeField] private float _bounceCooldown = 0.2f;
     [SerializeField] private AnimationState _animState = AnimationState.IDLE;
     private InputAction _move;
     private InputAction _jump;
@@ -68,6 +70,7 @@ public class FleaMovementController : MonoBehaviour
     private void FixedUpdate()
     {
         _jumpCooldown -= Time.deltaTime;
+        _bounceCooldown -= Time.deltaTime;
 
         float hInput = _inputActions.Flea.Horizontal.ReadValue<float>();
         if (hInput == 0) //decelerating
@@ -86,17 +89,38 @@ public class FleaMovementController : MonoBehaviour
 
         if (!_isGrounded && _jumpCooldown <= 0f)
         {
-            if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.51f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
-            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.51f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
+            if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
         }
         else if (_isGrounded)
         {
-            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.51f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 1.51f, _environment)) { _isGrounded = false; }
-        }
-        //Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 1.51f, Color.red);
-        //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 1.51f, Color.red);
+            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = false; }
 
-        HandleAnimations();
+            Collider2D lCol = Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment).collider;
+            Collider2D rCol = Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 2.01f, _environment).collider;
+            if (lCol != null)
+            {
+                if (lCol.gameObject.CompareTag("Bounce"))
+                {
+                    Bounce();
+                }
+                else
+                {
+                    if (rCol != null)
+                    {
+                        if (rCol.gameObject.CompareTag("Bounce"))
+                        {
+                            Bounce();
+                        }
+                    }
+                }
+            }
+
+            //Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 2.01f, Color.red);
+            //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 2.01f, Color.red);
+
+            HandleAnimations();
+        }
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -104,8 +128,21 @@ public class FleaMovementController : MonoBehaviour
         if (!_isGrounded || _jumpCooldown > 0) { return; }
         _isGrounded = false;
         _jumpCooldown = 0.2f;
+        _bounceCooldown = 0.2f;
          _rb.AddForce(new Vector2(0, _jumpForce + (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
         Debug.Log("Jump Force: " + (_jumpForce + (_itemCount * _jumpItemMultiplier)));
+        if (_animState == AnimationState.SHOOT || _animState == AnimationState.DEAD) { return; }
+        _animator.Play("Jump");
+        _animState = AnimationState.JUMP;
+    }
+
+    private void Bounce()
+    {
+        if (_bounceCooldown > 0f) { return; }
+        _jumpCooldown = 0.2f;
+        _bounceCooldown = 0.2f;
+        _rb.AddForce(new Vector2(0, _bouncePadMultiplier * _jumpForce + (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
+        Debug.Log("Bounce Jump Force: " + (_bouncePadMultiplier * _jumpForce + (_itemCount * _jumpItemMultiplier)));
         if (_animState == AnimationState.SHOOT || _animState == AnimationState.DEAD) { return; }
         _animator.Play("Jump");
         _animState = AnimationState.JUMP;

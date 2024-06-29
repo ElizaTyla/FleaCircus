@@ -45,11 +45,11 @@ public class Flea : MonoBehaviour
             rb.AddForce(force, ForceMode2D.Impulse);
         }
 
-        else if (other.gameObject.CompareTag("Bounce"))
+        /*else if (other.gameObject.CompareTag("Bounce"))
         {
             Vector2 difference = (transform.position - other.transform.position).normalized;
             Vector2 force = difference * knockbackForce * 2.5f;
             rb.AddForce(force, ForceMode2D.Impulse);
-        }
+        }*/
     }
 }
