@@ -8,9 +8,9 @@ public class FleaMovementController : MonoBehaviour
     [Header("Main")]
     public PlayerInputActions _inputActions;
     [SerializeField] private Rigidbody2D _rb;
-    private InputAction _move;
-    private InputAction _jump;
-    private InputAction _shoot;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    private LayerMask _environment;
+
 
     [Header("Movement Values")]
     [SerializeField] private float _speed;
@@ -19,12 +19,17 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private float _jumpForce;
 
     [Header("Realtime Values")]
-    private bool _isJumping = false;
-    private float _lookDir = 1;
+    [SerializeField] private bool _isGrounded;
+    [SerializeField] private float _lookDir = 1;
+    [SerializeField] private float _jumpCooldown = 0.2f;
+    private InputAction _move;
+    private InputAction _jump;
+    private InputAction _shoot;
 
     private void Awake()
     {
         _inputActions = new PlayerInputActions();
+        _environment = LayerMask.GetMask("Environment");
     }
 
     private void OnEnable()
@@ -48,6 +53,8 @@ public class FleaMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _jumpCooldown -= Time.deltaTime;
+
         float hInput = _inputActions.Flea.Horizontal.ReadValue<float>();
         if (hInput == 0) //decelerating
         {
@@ -58,20 +65,25 @@ public class FleaMovementController : MonoBehaviour
         else
         {
             _lookDir = hInput;
+            if (_lookDir == 1) { _spriteRenderer.flipX = true; } else { _spriteRenderer.flipX = false; }
             _rb.velocity += new Vector2((hInput * _acceleration * Time.deltaTime), 0);
             if (_rb.velocity.x > _speed || _rb.velocity.x < -_speed) { _rb.velocity = new Vector2(_speed * hInput, _rb.velocity.y); } //Cap top speed
         }
 
-        if (_isJumping) //TODO: add groundcheck
+        if (!_isGrounded && _jumpCooldown <= 0f) //TODO: add groundcheck
         {
-            _isJumping = false;
+            if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 1.01f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
         }
+        Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 1.01f, Color.red);
+        Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 1.01f, Color.red);
     }
 
     private void Jump(InputAction.CallbackContext context)
     {
-        if (_isJumping) { return; }
-        _isJumping = true; ;
+        if (!_isGrounded || _jumpCooldown > 0) { return; }
+        _isGrounded = false;
+        _jumpCooldown = 0.2f;
         _rb.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
     }
 
