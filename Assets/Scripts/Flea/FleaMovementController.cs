@@ -20,6 +20,7 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _firePoint;
     private LayerMask _environment;
 
 
@@ -82,7 +83,16 @@ public class FleaMovementController : MonoBehaviour
         else
         {
             _lookDir = hInput;
-            if (_lookDir == 1) { _spriteRenderer.flipX = true; } else { _spriteRenderer.flipX = false; }
+            if (_lookDir == 1)
+            {
+                _spriteRenderer.flipX = true;
+                _firePoint.transform.position = new Vector2(0.8f, -0.2f);                
+            }
+            else
+            {
+                _spriteRenderer.flipX = false;
+                _firePoint.transform.position = new Vector2(-0.8f, -0.2f);
+            }
             _rb.velocity += new Vector2((hInput * _acceleration * Time.deltaTime), 0);
             if (_rb.velocity.x > _speed || _rb.velocity.x < -_speed) { _rb.velocity = new Vector2(_speed * hInput, _rb.velocity.y); } //Cap top speed
         }
@@ -150,9 +160,16 @@ public class FleaMovementController : MonoBehaviour
 
     private void Shoot(InputAction.CallbackContext context)
     {
+        Vector2 fireDir = Vector2.right;
+        if (_lookDir == -1) { fireDir = Vector2.left; }
         Debug.Log("shoot");
         _animator.Play("Shoot");
         _animState = AnimationState.SHOOT;
+    }
+
+    private void SpawnProjectile() //Called during shoot animation
+    {
+        //TODO: projectile spawning and logic
     }
 
     private void HandleAnimations()
