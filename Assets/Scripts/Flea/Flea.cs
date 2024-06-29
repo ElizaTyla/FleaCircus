@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class Flea : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int hp;
+    private bool invulnerable = false;
+    public float invulnerableTime;
+
+    public IEnumerable SetInvulnerable()
     {
-        
+        invulnerable = true;
+        yield return new WaitForSeconds(invulnerableTime);
+        invulnerable = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeHp(int amount)
     {
-        
+        if (!invulnerable)
+        {
+            hp += amount;
+
+        }
     }
 }
