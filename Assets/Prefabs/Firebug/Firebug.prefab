@@ -42,8 +42,9 @@ GameObject:
   - component: {fileID: 7226453862603347007}
   - component: {fileID: 2434846204824094670}
   - component: {fileID: 4139483075367655377}
-  - component: {fileID: 2793354710905462702}
   - component: {fileID: 7050471124761228439}
+  - component: {fileID: 5558925222932941529}
+  - component: {fileID: 6911408778132546825}
   m_Layer: 0
   m_Name: guy on fire
   m_TagString: Enemy
@@ -107,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 20c5b676e2aad07459fdb4ba8d4ed690, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c56afcad58e8b274fb79d5fb6b757f61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,8 +146,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &2793354710905462702
-BoxCollider2D:
+--- !u!114 &7050471124761228439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2973598025677484359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5485a2ad9f332489a951d99427fa4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 3682283186823082670}
+  pointB: {fileID: 2283843764785145943}
+  speed: 3
+  hp: 10
+--- !u!95 &5558925222932941529
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2973598025677484359}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2441853c7893464bbd9399e99bbc6f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &6911408778132546825
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -177,35 +215,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12850523, y: 0.0091789365}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7429895, y: 1.6879159}
-  m_EdgeRadius: 0
---- !u!114 &7050471124761228439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2973598025677484359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5485a2ad9f332489a951d99427fa4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointA: {fileID: 3682283186823082670}
-  pointB: {fileID: 2283843764785145943}
-  speed: 3
-  hp: 10
+  m_Offset: {x: 0.05153966, y: -0.7086735}
+  m_Size: {x: 4.364451, y: 7.018755}
+  m_Direction: 0
 --- !u!1 &3682283186823082670
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041272208605954644}
   m_Layer: 0
-  m_Name: Enemy Path
+  m_Name: Firebug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
