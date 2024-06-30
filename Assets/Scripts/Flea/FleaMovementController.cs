@@ -21,6 +21,7 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject _firePoint;
+    [SerializeField] private GameObject _projectile;
     private LayerMask _environment;
 
 
@@ -38,6 +39,7 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private float _lookDir = 1;
     [SerializeField] private float _jumpCooldown = 0.2f;
     [SerializeField] private float _bounceCooldown = 0.2f;
+    [SerializeField] private float _shootCooldown = 0.2f;
     [SerializeField] private AnimationState _animState = AnimationState.IDLE;
     private InputAction _move;
     private InputAction _jump;
@@ -70,8 +72,10 @@ public class FleaMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_animState == AnimationState.DEAD) { return; }
         _jumpCooldown -= Time.deltaTime;
         _bounceCooldown -= Time.deltaTime;
+        _shootCooldown -= Time.deltaTime;
 
         float hInput = _inputActions.Flea.Horizontal.ReadValue<float>();
         if (hInput == 0) //decelerating
@@ -86,12 +90,12 @@ public class FleaMovementController : MonoBehaviour
             if (_lookDir == 1)
             {
                 _spriteRenderer.flipX = true;
-                _firePoint.transform.position = new Vector2(0.8f, -0.2f);                
+                _firePoint.transform.localPosition = new Vector2(0.8f, -0.2f);                
             }
             else
             {
                 _spriteRenderer.flipX = false;
-                _firePoint.transform.position = new Vector2(-0.8f, -0.2f);
+                _firePoint.transform.localPosition = new Vector2(-0.8f, -0.2f);
             }
             _rb.velocity += new Vector2((hInput * _acceleration * Time.deltaTime), 0);
             if (_rb.velocity.x > _speed || _rb.velocity.x < -_speed) { _rb.velocity = new Vector2(_speed * hInput, _rb.velocity.y); } //Cap top speed
@@ -133,9 +137,15 @@ public class FleaMovementController : MonoBehaviour
         }
     }
 
+    public void Death()
+    {
+        _animator.Play("Death");
+        _animState = AnimationState.DEAD;
+    }
+
     private void Jump(InputAction.CallbackContext context)
     {
-        if (!_isGrounded || _jumpCooldown > 0) { return; }
+        if (!_isGrounded || _jumpCooldown > 0 || _animState == AnimationState.DEAD) { return; }
         _isGrounded = false;
         _jumpCooldown = 0.2f;
         _bounceCooldown = 0.2f;
@@ -148,7 +158,7 @@ public class FleaMovementController : MonoBehaviour
 
     private void Bounce()
     {
-        if (_bounceCooldown > 0f) { return; }
+        if (_bounceCooldown > 0f || _animState == AnimationState.DEAD) { return; }
         _jumpCooldown = 0.2f;
         _bounceCooldown = 0.2f;
         _rb.AddForce(new Vector2(0, _bouncePadMultiplier * _jumpForce + (_itemCount * _jumpItemMultiplier)), ForceMode2D.Impulse);
@@ -160,8 +170,8 @@ public class FleaMovementController : MonoBehaviour
 
     private void Shoot(InputAction.CallbackContext context)
     {
-        Vector2 fireDir = Vector2.right;
-        if (_lookDir == -1) { fireDir = Vector2.left; }
+        if (_shootCooldown > 0f || _animState == AnimationState.DEAD) { return; }
+        _shootCooldown = 0.2f;
         Debug.Log("shoot");
         _animator.Play("Shoot");
         _animState = AnimationState.SHOOT;
@@ -169,6 +179,10 @@ public class FleaMovementController : MonoBehaviour
 
     private void SpawnProjectile() //Called during shoot animation
     {
+        Vector2 fireDir = Vector2.right;
+        if (_lookDir == -1) { fireDir = Vector2.left; }
+        GameObject projectile = GameObject.Instantiate(_projectile, _firePoint.transform.position, _firePoint.transform.rotation, _firePoint.transform);
+        if (fireDir == Vector2.right) { projectile.transform.Rotate(0, 0, 180); }
         //TODO: projectile spawning and logic
     }
 

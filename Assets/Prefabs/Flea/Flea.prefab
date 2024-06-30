@@ -196,6 +196,7 @@ MonoBehaviour:
   hp: 10
   knockbackForce: 0
   invulnerableTime: 0
+  MovementController: {fileID: -7768170676804225658}
 --- !u!114 &-7768170676804225658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +212,8 @@ MonoBehaviour:
   _rb: {fileID: 7647703993777246980}
   _spriteRenderer: {fileID: 3977828696824010469}
   _animator: {fileID: 5295617967091237873}
-  _firePoint: {fileID: 0}
+  _firePoint: {fileID: 793068678677983299}
+  _projectile: {fileID: 6407355771458601407, guid: 65129ce06445165408318885d4d01c02, type: 3}
   _speed: 15
   _acceleration: 25
   _deceleration: 25

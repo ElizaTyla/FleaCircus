@@ -10,6 +10,8 @@ public class Flea : MonoBehaviour
     private bool invulnerable = false;
     public float invulnerableTime;
     private Rigidbody2D rb;
+    public FleaMovementController MovementController;
+    private bool _isDead = false;
 
     void Start()
     {
@@ -18,9 +20,14 @@ public class Flea : MonoBehaviour
 
     void Update()
     {
-        if (hp <= 0)
+        if (!_isDead)
         {
-            //dies, offer to restart?
+            if (hp <= 0)
+            {
+                //dies, offer to restart?
+                _isDead = true;
+                MovementController.Death();
+            }
         }
     }
 
@@ -33,6 +40,7 @@ public class Flea : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (_isDead) { return; }
         if (other.gameObject.CompareTag("Enemy") && !invulnerable)
         {
             Debug.Log("Collide");
