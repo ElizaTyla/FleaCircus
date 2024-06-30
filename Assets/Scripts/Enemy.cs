@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     private GameObject flea;
     public float hp = 10;
+    private bool firstFlip = true;
     
     void Start()
     {
@@ -44,6 +45,7 @@ public class Enemy : MonoBehaviour
         if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f)
         {
             currentPoint = (currentPoint == pointA.transform) ? pointB.transform : pointA.transform;
+            gameObject.GetComponent<SpriteRenderer>().flipX = !gameObject.GetComponent<SpriteRenderer>().flipX;
         }
     }
 }
