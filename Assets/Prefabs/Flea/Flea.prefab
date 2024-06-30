@@ -125,7 +125,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1733545896214353376}
   - component: {fileID: 7647703993777246980}
-  - component: {fileID: 6803099796300796993}
   - component: {fileID: -7768170676804225658}
   - component: {fileID: 773179733716504930}
   - component: {fileID: 5295617967091237873}
@@ -181,21 +180,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6803099796300796993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5248687982096578576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cefd15531548c4409d0f81e47ec931a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 10
-  knockbackForce: 0
-  invulnerableTime: 0
 --- !u!114 &-7768170676804225658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 399532790815007817}
   - component: {fileID: 4261255251117677349}
+  - component: {fileID: 8073097097892294606}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -342,3 +327,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &8073097097892294606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586827655478175331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cefd15531548c4409d0f81e47ec931a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  knockbackForce: 10
+  invulnerableTime: 2

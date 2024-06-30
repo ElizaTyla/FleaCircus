@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flea : MonoBehaviour
+public class FleaCollider : MonoBehaviour
 {
     [SerializeField] public int hp;
     [SerializeField] public float knockbackForce;
@@ -13,7 +13,7 @@ public class Flea : MonoBehaviour
 
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb = transform.parent.gameObject.GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -44,12 +44,6 @@ public class Flea : MonoBehaviour
             Vector2 force = difference * knockbackForce;
             rb.AddForce(force, ForceMode2D.Impulse);
         }
-
-        /*else if (other.gameObject.CompareTag("Bounce"))
-        {
-            Vector2 difference = (transform.position - other.transform.position).normalized;
-            Vector2 force = difference * knockbackForce * 2.5f;
-            rb.AddForce(force, ForceMode2D.Impulse);
-        }*/
+        
     }
 }
