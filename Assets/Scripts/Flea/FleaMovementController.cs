@@ -34,7 +34,7 @@ public class FleaMovementController : MonoBehaviour
     [SerializeField] private float _bouncePadMultiplier;
 
     [Header("Realtime Values")]
-    [SerializeField] private int _itemCount;
+    [SerializeField] private int _itemCount = 0;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _lookDir = 1;
     [SerializeField] private float _jumpCooldown = 0.2f;
@@ -134,6 +134,15 @@ public class FleaMovementController : MonoBehaviour
             //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 2.01f, Color.red);
 
             HandleAnimations();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Blood"))
+        {
+            _itemCount += 1;
+            GameObject.Destroy(collision.gameObject);
         }
     }
 

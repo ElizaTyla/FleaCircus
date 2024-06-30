@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5558925222932941529}
+  BloodObj: {fileID: 4455156338655068201, guid: 591a6f5b8939a904daf900ed15c671b2, type: 3}
   pointA: {fileID: 3682283186823082670}
   pointB: {fileID: 2283843764785145943}
   speed: 3

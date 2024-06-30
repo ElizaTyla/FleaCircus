@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Animator animator;
+    public GameObject BloodObj;
     public GameObject pointA;
     public GameObject pointB;
     private Rigidbody2D rb;
@@ -64,6 +65,7 @@ public class Enemy : MonoBehaviour
 
     private void DestroyEnemy()
     {
-        GameObject.Destroy(this.gameObject.transform.parent);
+        GameObject.Destroy(this.gameObject.transform.parent.gameObject);
+        GameObject.Instantiate(BloodObj, this.gameObject.transform.position, new Quaternion(0,0,0,0));
     }
 }
