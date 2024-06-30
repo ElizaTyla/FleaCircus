@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Animator animator;
     public GameObject pointA;
     public GameObject pointB;
     private Rigidbody2D rb;
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     private GameObject flea;
     public float hp = 10;
     private bool firstFlip = true;
+    private bool isDead = false;
     
     void Start()
     {
@@ -23,10 +25,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead) { return; }
         EnemyMovement();
 
         if (hp <= 0)
         {
+            isDead = true;
+            if (animator != null) { animator.Play("Death"); }
             //enemy dies, drops blood
         }
     }
@@ -47,5 +52,18 @@ public class Enemy : MonoBehaviour
             currentPoint = (currentPoint == pointA.transform) ? pointB.transform : pointA.transform;
             gameObject.GetComponent<SpriteRenderer>().flipX = !gameObject.GetComponent<SpriteRenderer>().flipX;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if  (collision.gameObject.CompareTag("ProjectileCollider"))
+        {
+            hp -= 5;
+        }
+    }
+
+    private void DestroyEnemy()
+    {
+        GameObject.Destroy(this.gameObject.transform.parent);
     }
 }

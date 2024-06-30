@@ -15,7 +15,7 @@ public class FleaCollider : MonoBehaviour
 
     void Start()
     {
-        rb = transform.parent.gameObject.GetComponent<Rigidbody2D>();
+        rb = transform.gameObject.GetComponent<Rigidbody2D>();
     }
 
     void Update()
