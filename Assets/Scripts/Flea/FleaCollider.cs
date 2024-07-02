@@ -43,6 +43,7 @@ public class FleaCollider : MonoBehaviour
         if (_isDead) { return; }
         if (other.gameObject.CompareTag("Enemy") && !invulnerable)
         {
+            if (other.gameObject.GetComponent<Enemy>().isDead) { return; }
             Debug.Log("Collide");
             hp -= 5;
             StartCoroutine("SetInvulnerable");

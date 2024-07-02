@@ -9,12 +9,13 @@ public class Enemy : MonoBehaviour
     public GameObject pointA;
     public GameObject pointB;
     private Rigidbody2D rb;
+    //public Collider2D col;
     private Transform currentPoint;
     public float speed;
     private GameObject flea;
     public float hp = 10;
     private bool firstFlip = true;
-    private bool isDead = false;
+    public bool isDead = false;
     
     void Start()
     {
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             isDead = true;
+            //col.enabled = false;
             if (animator != null) { animator.Play("Death"); }
             //enemy dies, drops blood
         }

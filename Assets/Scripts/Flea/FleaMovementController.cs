@@ -103,35 +103,41 @@ public class FleaMovementController : MonoBehaviour
 
         if (!_isGrounded && _jumpCooldown <= 0f)
         {
-            if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
-            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
+            if (Physics2D.Raycast(_rb.position + new Vector2(-0.8f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with far left ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(-0.4f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with left ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(0f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with middle ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(0.4f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with right ray!
+            else if (Physics2D.Raycast(_rb.position + new Vector2(0.8f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = true; } //Hit ground with far right ray!
         }
         else if (_isGrounded)
         {
-            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = false; }
+            if (!Physics2D.Raycast(_rb.position + new Vector2(-0.4f, 0f), Vector2.down, 2.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.8f, 0f), Vector2.down, 2.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(0.0f, 0f), Vector2.down, 2.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(-0.8f, 0f), Vector2.down, 2.01f, _environment) && !Physics2D.Raycast(_rb.position + new Vector2(-0.4f, 0f), Vector2.down, 2.01f, _environment)) { _isGrounded = false; }
 
-            Collider2D lCol = Physics2D.Raycast(_rb.position + new Vector2(-0.1f, 0f), Vector2.down, 2.01f, _environment).collider;
-            Collider2D rCol = Physics2D.Raycast(_rb.position + new Vector2(0.1f, 0f), Vector2.down, 2.01f, _environment).collider;
-            if (lCol != null)
+            List<Collider2D> cols = new List<Collider2D>();
+            bool hasBounced = false;
+            cols.Add(Physics2D.Raycast(_rb.position + new Vector2(-0.8f, 0f), Vector2.down, 2.01f, _environment).collider);
+            cols.Add(Physics2D.Raycast(_rb.position + new Vector2(-0.4f, 0f), Vector2.down, 2.01f, _environment).collider);
+            cols.Add(Physics2D.Raycast(_rb.position + new Vector2(0f, 0f), Vector2.down, 2.01f, _environment).collider);
+            cols.Add(Physics2D.Raycast(_rb.position + new Vector2(0.4f, 0f), Vector2.down, 2.01f, _environment).collider);
+            cols.Add(Physics2D.Raycast(_rb.position + new Vector2(0.8f, 0f), Vector2.down, 2.01f, _environment).collider);
+
+            foreach (Collider2D col in cols)
             {
-                if (lCol.gameObject.CompareTag("Bounce"))
+                if (col != null && !hasBounced)
                 {
-                    Bounce();
-                }
-                else
-                {
-                    if (rCol != null)
+                    if (col.gameObject.CompareTag("Bounce"))
                     {
-                        if (rCol.gameObject.CompareTag("Bounce"))
-                        {
-                            Bounce();
-                        }
+                        hasBounced = true;
+                        Bounce();
                     }
                 }
             }
 
-            //Debug.DrawRay(_rb.position + new Vector2(-0.1f, 0f), Vector2.down * 2.01f, Color.red);
-            //Debug.DrawRay(_rb.position + new Vector2(0.1f, 0f), Vector2.down * 2.01f, Color.red);
+            Debug.DrawRay(_rb.position + new Vector2(-0.8f, 0f), Vector2.down * 2.01f, Color.red);
+            Debug.DrawRay(_rb.position + new Vector2(-0.4f, 0f), Vector2.down * 2.01f, Color.red);
+            Debug.DrawRay(_rb.position + new Vector2(0.0f, 0f), Vector2.down * 2.01f, Color.red);
+            Debug.DrawRay(_rb.position + new Vector2(0.4f, 0f), Vector2.down * 2.01f, Color.red);
+            Debug.DrawRay(_rb.position + new Vector2(0.8f, 0f), Vector2.down * 2.01f, Color.red);
 
             HandleAnimations();
         }
